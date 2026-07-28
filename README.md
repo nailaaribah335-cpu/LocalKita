@@ -6,7 +6,7 @@
 [![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)]()
 [![Status](https://img.shields.io/badge/Status-In_Development-orange?style=for-the-badge)]()
 
-> **LocalKita** adalah platform direktori dan e-commerce yang dirancang untuk mendigitalisasi UMKM di kawasan **Tanah Seratus**. Platform ini mengatasi masalah *location search friction* melalui pemetaan digital berbasis Google Maps, petunjuk landmark lokal, katalog produk, indikator status toko *real-time*, serta sistem pemesanan langsung via WhatsApp tanpa biaya komisi.
+> **LocalKita** adalah platform direktori dan e-commerce yang dirancang untuk mendigitalisasi UMKM di kawasan **Tanah Seratus**. Platform ini mengatasi masalah *location search* melalui pemetaan digital berbasis Google Maps, petunjuk landmark lokal, katalog produk, indikator status toko *real-time*, serta sistem pemesanan langsung via WhatsApp tanpa biaya komisi.
 
 ---
 
@@ -32,7 +32,7 @@
 
 Mayoritas pelaku UMKM di kawasan **Tanah Seratus** (sektor kuliner, jasa, hingga warung kelontong) masih mengandalkan pemasaran konvensional berbasis *word-of-mouth* dan lalu lintas fisik lokal. 
 
-Kondisi ini menciptakan kendala tingginya **hambatan pencarian lokasi (*location search friction*)**, di mana petunjuk arah masih menggunakan acuan lisan yang tidak presisi (seperti *"depan masjid"* atau *"masuk gang"*). Akibatnya, calon konsumen dari luar kawasan maupun warga baru mengalami kesulitan menemukan titik pasti UMKM, sehingga jangkauan pasar menjadi terbatas (*hiper-lokal*) dan potensi pendapatan pelaku usaha tidak optimal.
+Kondisi ini menciptakan kendala tingginya **hambatan pencarian lokasi (*location search*)**, di mana petunjuk arah masih menggunakan acuan lisan yang tidak presisi (seperti *"depan masjid"* atau *"masuk gang"*). Akibatnya, calon konsumen dari luar kawasan maupun warga baru mengalami kesulitan menemukan titik pasti UMKM, sehingga jangkauan pasar menjadi terbatas dan potensi pendapatan pelaku usaha tidak optimal.
 
 ---
 
@@ -73,21 +73,21 @@ Kondisi ini menciptakan kendala tingginya **hambatan pencarian lokasi (*location
 ### 1. Modul Buyer (Publik)
 * 🔍 **Pencarian & Filter:** Pencarian produk atau toko berdasarkan kata kunci nama atau kategori (*Kuliner, Jasa, Kelontong*).
 * 📋 **Katalog Produk & Detail Harga:** Display produk interaktif lengkap dengan foto, nama barang, harga, dan deskripsi singkat.
-* 🗺️ **Maps & Landmark Integration:** 
+*  **Maps & Landmark Integration:** 
   * Peta digital interaktif berbasis **Google Maps**.
   * Deskripsi patokan lokal khas warga (contoh: *"50 meter setelah Masjid Al-Ikhlas, sebelah kanan gang"*).
-* 💬 **Order Direct via WhatsApp:** Tombol *"Pesan via WhatsApp"* yang otomatis menyusun draf format pesan belanjaan.
-* 🟢🔴 **Indikator Status Toko:** Label status *real-time* `[🟢 BUKA]` atau `[🔴 TUTUP]` langsung di halaman detail toko.
+* **Order Direct via WhatsApp:** Tombol *"Pesan via WhatsApp"* yang otomatis menyusun draf format pesan belanjaan.
+*  **Indikator Status Toko:** Label status *real-time* `[BUKA]` atau `[TUTUP]` langsung di halaman detail toko.
 
 ### 2. Modul Seller (Pelaku UMKM)
-* 🔐 **Registrasi & Autentikasi:** Pendaftaran akun toko mandiri dan sistem autentikasi aman.
-* 🏬 **Manajemen Profil Toko:** Pengaturan nama toko, deskripsi, alamat, *landmark* patokan, serta nomor WhatsApp aktif.
-* 📦 **Manajemen Katalog (CRUD Produk):** Menambah, melihat, memperbarui, dan menghapus produk/jasa beserta gambar dan variasi harga.
-* 🔘 **Toggle Status Real-Time:** Sakelar *toggle* simpel untuk mengubah status operasional toko (*Buka/Tutup*) kapan saja secara instan.
+*  **Registrasi & Autentikasi:** Pendaftaran akun toko mandiri dan sistem autentikasi aman.
+*  **Manajemen Profil Toko:** Pengaturan nama toko, deskripsi, alamat, *landmark* patokan, serta nomor WhatsApp aktif.
+*  **Manajemen Katalog (CRUD Produk):** Menambah, melihat, memperbarui, dan menghapus produk/jasa beserta gambar dan variasi harga.
+*  **Toggle Status Real-Time:** Sakelar *toggle* simpel untuk mengubah status operasional toko (*Buka/Tutup*) kapan saja secara instan.
 
 ### 3. Modul Admin (Pengelola)
-* ✅ **Approval Toko Baru:** Verifikasi pendaftaran akun Seller (*Approve/Reject*) untuk menjaga validitas toko yang tampil publik.
-* 🏷️ **Manajemen Kategori Master:** Mengatur kategori produk (*Makanan, Minuman, Servis Elektronik, Kelontong, dll.*).
+*  **Approval Toko Baru:** Verifikasi pendaftaran akun Seller (*Approve/Reject*) untuk menjaga validitas toko yang tampil publik.
+*  **Manajemen Kategori Master:** Mengatur kategori produk (*Makanan, Minuman, Servis Elektronik, Kelontong, dll.*).
 
 ---
 
@@ -99,7 +99,7 @@ Kondisi ini menciptakan kendala tingginya **hambatan pencarian lokasi (*location
 
 ---
 
-## 🔄 Alur Kerja Sistem (User Flow)
+## Alur Kerja Sistem (User Flow)
 
 ```text
 ┌─────────────────────────────────────────────────────────────────────────────┐
