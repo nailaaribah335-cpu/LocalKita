@@ -6,7 +6,7 @@
 [![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)]()
 [![Status](https://img.shields.io/badge/Status-In_Development-orange?style=for-the-badge)]()
 
-> **LocalKita** adalah platform direktori dan e-commerce hiper-lokal yang dirancang untuk mendigitalisasi UMKM di kawasan **Tanah Seratus**. Platform ini mengatasi masalah *location search friction* melalui pemetaan digital berbasis Google Maps, petunjuk landmark lokal, katalog produk, indikator status toko *real-time*, serta sistem pemesanan langsung via WhatsApp tanpa biaya komisi.
+> **LocalKita** adalah platform direktori dan e-commerce yang dirancang untuk mendigitalisasi UMKM di kawasan **Tanah Seratus**. Platform ini mengatasi masalah *location search friction* melalui pemetaan digital berbasis Google Maps, petunjuk landmark lokal, katalog produk, indikator status toko *real-time*, serta sistem pemesanan langsung via WhatsApp tanpa biaya komisi.
 
 ---
 
