@@ -10,7 +10,7 @@
 
 ---
 
-## 📌 Daftar Isi
+## Daftar Isi
 
 - [Latar Belakang](#-latar-belakang)
 - [Tujuan Produk](#-tujuan-produk)
@@ -28,7 +28,7 @@
 
 ---
 
-## 📖 Latar Belakang
+## Latar Belakang
 
 Mayoritas pelaku UMKM di kawasan **Tanah Seratus** (sektor kuliner, jasa, hingga warung kelontong) masih mengandalkan pemasaran konvensional berbasis *word-of-mouth* dan lalu lintas fisik lokal. 
 
@@ -36,7 +36,7 @@ Kondisi ini menciptakan kendala tingginya **hambatan pencarian lokasi (*location
 
 ---
 
-## 🎯 Tujuan Produk
+## Tujuan Produk
 
 1. **Digitalisasi UMKM:** Menyediakan katalog digital terpusat untuk menampilkan produk dan jasa warga Tanah Seratus secara sistematis dan menarik.
 2. **Navigasi Presisi:** Mengintegrasikan koordinat peta digital (Google Maps) dengan patokan lisan khas warga lokal (*landmark*) untuk menghilangkan kendala *location search friction* (Pasaribu, 2020).
@@ -44,13 +44,13 @@ Kondisi ini menciptakan kendala tingginya **hambatan pencarian lokasi (*location
 
 ---
 
-## 🛠 Teknologi & Referensi
+## Teknologi & Referensi
 
 | Komponen | Spesifikasi / Detail |
 | :--- | :--- |
 | **Framework Backend** | [Laravel 12](https://laravel.com) |
 | **Styling & CSS** | [Tailwind CSS](https://tailwindcss.com) |
-| **Database** | MySQL / PostgreSQL |
+| **Database** | MySQL |
 | **Map Engine** | Google Maps Embed API |
 | **Direct Order** | WhatsApp URL Scheme (`https://wa.me/`) |
 | **Referensi Design UI** | Pinterest (Moodboard & Layout Grid) |
@@ -58,7 +58,7 @@ Kondisi ini menciptakan kendala tingginya **hambatan pencarian lokasi (*location
 
 ---
 
-## 👥 Aktor Sistem & Peran
+## Aktor Sistem & Peran
 
 | Aktor | Peran | Kebutuhan Utama |
 | :--- | :--- | :--- |
@@ -68,11 +68,11 @@ Kondisi ini menciptakan kendala tingginya **hambatan pencarian lokasi (*location
 
 ---
 
-## ✨ Fitur Utama
+## Fitur Utama
 
 ### 1. Modul Buyer (Publik)
-* 🔍 **Pencarian & Filter:** Pencarian produk atau toko berdasarkan kata kunci nama atau kategori (*Kuliner, Jasa, Kelontong*).
-* 📋 **Katalog Produk & Detail Harga:** Display produk interaktif lengkap dengan foto, nama barang, harga, dan deskripsi singkat.
+* **Pencarian & Filter:** Pencarian produk atau toko berdasarkan kata kunci nama atau kategori (*Kuliner, Jasa, Kelontong*).
+* **Katalog Produk & Detail Harga:** Display produk interaktif lengkap dengan foto, nama barang, harga, dan deskripsi singkat.
 *  **Maps & Landmark Integration:** 
   * Peta digital interaktif berbasis **Google Maps**.
   * Deskripsi patokan lokal khas warga (contoh: *"50 meter setelah Masjid Al-Ikhlas, sebelah kanan gang"*).
@@ -91,7 +91,7 @@ Kondisi ini menciptakan kendala tingginya **hambatan pencarian lokasi (*location
 
 ---
 
-## ⚡ Persyaratan Non-Fungsional
+## Persyaratan Non-Fungsional
 
 1. **Responsivitas Tampilan (Mobile-First):** Dikarenakan sebagian besar target *Buyer* dan *Seller* mengakses via *smartphone*, antarmuka website wajib responsif 100%.
 2. **Kemudahan Penggunaan (Usability):** Antarmuka dashboard *Seller* dirancang ringkas dan sederhana (*user-friendly*) agar gampang dioperasikan oleh semua usia.
