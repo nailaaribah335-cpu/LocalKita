@@ -1,5 +1,5 @@
 # PRODUCT REQUIREMENT DOCUMENT (PRD)
-# Platform Direktori & E-Commerce "LocalKita"
+Platform Direktori & E-Commerce "LocalKita"
 
 Nama Website    : LocalKita
 Area Fokus      : Kawasan Tanah Seratus
