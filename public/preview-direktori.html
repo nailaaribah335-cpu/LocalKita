@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Direktori UMKM Lokal — LocalKita</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Fonts Google: Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    colors: {
+                        cream: {
+                            50: '#FFFDF9',
+                            100: '#FAF5EE', // warm cream / soft beige
+                            200: '#F5EBDD',
+                            300: '#EBD8C3',
+                            DEFAULT: '#FAF5EE',
+                        },
+                        'red-orange': {
+                            50: '#FFF1ED',
+                            100: '#FFE0D5',
+                            200: '#FFC2B0',
+                            300: '#FF977A',
+                            400: '#FF6842',
+                            500: '#FF4500', // bold red-orange
+                            600: '#E63900',
+                            700: '#BF2B00',
+                            DEFAULT: '#FF4500',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-[#FAF5EE] text-stone-800 font-sans antialiased selection:bg-[#FF4500] selection:text-white min-h-screen flex flex-col pb-20 md:pb-6">
+
+    <!-- Top Sticky Header -->
+    <nav class="border-b border-[#F0E6D8] sticky top-0 bg-[#FAF5EE]/95 backdrop-blur-md z-40">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16 sm:h-20">
+                <!-- Brand Logo -->
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-[#FF4500] to-[#FF7043] flex items-center justify-center text-white font-black text-xl shadow-md shadow-[#FF4500]/25">
+                        LK
+                    </div>
+                    <div>
+                        <span class="text-xl font-black tracking-tight text-[#FF4500] leading-none block">LocalKita</span>
+                        <span class="text-[10px] font-bold text-stone-500 uppercase tracking-wider block">Direktori UMKM Lokal</span>
+                    </div>
+                </div>
+
+                <!-- Desktop Links -->
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="#" class="text-sm font-bold text-stone-600 hover:text-[#FF4500] transition-colors">Beranda</a>
+                    <a href="#" class="text-sm font-bold text-[#FF4500] bg-[#FFECE5] px-3.5 py-1.5 rounded-full">Direktori UMKM</a>
+                    <a href="#" class="text-sm font-bold text-stone-600 hover:text-[#FF4500] transition-colors">Top 100</a>
+                    <a href="#" class="text-sm font-bold text-stone-600 hover:text-[#FF4500] transition-colors">Favorit ❤️</a>
+                </div>
+
+                <!-- CTA Button -->
+                <div class="flex items-center gap-2">
+                    <a href="#daftar" class="bg-[#FF4500] hover:bg-[#E63900] text-white text-xs sm:text-sm font-extrabold px-4 sm:px-5 py-2 sm:py-2.5 rounded-full shadow-md shadow-[#FF4500]/20 transition-all hover:scale-105 active:scale-95">
+                        + Daftar UMKM
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container (Mobile-First) -->
+    <main class="max-w-6xl mx-auto px-3.5 sm:px-6 lg:px-8 py-4 sm:py-8 flex-grow w-full">
+
+        <!-- HEADER: GREETING & SEARCH (Mobile-First) -->
+        <header class="mb-5 sm:mb-8">
+            <!-- Warm Banner / Friendly Local Greeting -->
+            <div class="flex items-center justify-between gap-2 mb-3">
+                <div>
+                    <div class="inline-flex items-center gap-1.5 bg-[#FFE8DF] text-[#FF4500] px-3 py-1 rounded-full text-xs font-extrabold uppercase tracking-wider mb-1.5">
+                        <span>👋 Halo Warga!</span>
+                        <span class="w-1.5 h-1.5 rounded-full bg-[#FF4500]"></span>
+                        <span>Tanah Seratus</span>
+                    </div>
+                    <h1 class="text-2xl sm:text-4xl font-black text-[#FF4500] tracking-tight leading-tight">
+                        Direktori UMKM Lokal
+                    </h1>
+                    <p class="text-xs sm:text-sm font-medium text-stone-600 mt-0.5">
+                        Dukung usaha tetangga, jajan enak & kebutuhan harian makin mudah! 🛍️
+                    </p>
+                </div>
+
+                <!-- Quick Badge / Info -->
+                <div class="hidden sm:flex items-center gap-2 bg-white border border-[#E8DCCF] px-4 py-2 rounded-2xl shadow-sm">
+                    <span class="text-2xl">🏪</span>
+                    <div class="text-left">
+                        <span class="block text-[11px] font-bold text-stone-400 uppercase">Aktif Hari Ini</span>
+                        <span class="block text-sm font-black text-stone-800" id="total-badge">8 UMKM Pilihan</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Kolom Pencarian Ceria & Bersahabat -->
+            <div class="relative bg-white p-2 rounded-2xl sm:rounded-full shadow-sm border border-[#EFE5D6] mb-4 transition-all focus-within:ring-2 focus-within:ring-[#FF4500]/20 focus-within:border-[#FF4500]">
+                <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+                    <div class="flex items-center flex-grow pl-2 sm:pl-3">
+                        <div class="w-8 h-8 rounded-full bg-[#FFF1ED] text-[#FF4500] flex items-center justify-center shrink-0 mr-2.5 font-bold">
+                            🔍
+                        </div>
+                        <input 
+                            type="text" 
+                            id="search-input" 
+                            placeholder="Cari warung bakso, laundry, servis laptop, sembako..." 
+                            class="w-full bg-transparent border-none text-stone-800 placeholder-stone-400 text-xs sm:text-sm font-medium focus:outline-none focus:ring-0"
+                            autocomplete="off"
+                            oninput="filterCards()"
+                        >
+                        <button id="clear-search" onclick="clearSearch()" class="hidden text-stone-400 hover:text-stone-600 p-1 mr-1 text-xs" title="Hapus">
+                            ✖
+                        </button>
+                    </div>
+
+                    <div class="flex items-center gap-2 shrink-0">
+                        <!-- Filter Buka Only Quick Toggle -->
+                        <button 
+                            type="button" 
+                            id="btn-open-only" 
+                            onclick="toggleOpenOnly()" 
+                            class="flex items-center gap-1.5 px-3 py-2 sm:py-2.5 rounded-xl sm:rounded-full text-xs font-bold transition-all bg-stone-100 text-stone-600 hover:bg-stone-200">
+                            <span id="open-dot" class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                            <span id="open-label">Buka Aja</span>
+                        </button>
+
+                        <button 
+                            type="button" 
+                            onclick="filterCards()" 
+                            class="bg-[#FF4500] hover:bg-[#E63900] text-white px-5 sm:px-7 py-2 sm:py-2.5 rounded-xl sm:rounded-full text-xs sm:text-sm font-black shadow-md shadow-[#FF4500]/25 transition-all hover:scale-105 active:scale-95 flex items-center justify-center gap-1">
+                            <span>Temukan</span>
+                            <span>🚀</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tombol Kategori Berbentuk Pill (Scroll Menyamping) -->
+            <div class="relative">
+                <div class="flex items-center gap-2 overflow-x-auto scrollbar-hide py-1.5 -mx-3.5 px-3.5 sm:mx-0 sm:px-0" id="category-pills">
+                    <button 
+                        onclick="setCategory('all')" 
+                        data-cat="all" 
+                        class="category-pill shrink-0 px-4 py-2 rounded-full text-xs sm:text-sm font-extrabold transition-all border bg-[#FF4500] text-white border-[#FF4500] shadow-md shadow-[#FF4500]/25 scale-105">
+                        ✨ Semua Kategori
+                    </button>
+                    <button 
+                        onclick="setCategory('kuliner')" 
+                        data-cat="kuliner" 
+                        class="category-pill shrink-0 px-4 py-2 rounded-full text-xs sm:text-sm font-extrabold transition-all border bg-white text-stone-700 border-[#E8DCCF] hover:border-[#FF4500] hover:text-[#FF4500] shadow-sm flex items-center gap-1.5">
+                        <span>🍲</span> <span>Makanan & Jajanan</span>
+                    </button>
+                    <button 
+                        onclick="setCategory('kopi')" 
+                        data-cat="kopi" 
+                        class="category-pill shrink-0 px-4 py-2 rounded-full text-xs sm:text-sm font-extrabold transition-all border bg-white text-stone-700 border-[#E8DCCF] hover:border-[#FF4500] hover:text-[#FF4500] shadow-sm flex items-center gap-1.5">
+                        <span>☕</span> <span>Warkop & Kafe</span>
+                    </button>
+                    <button 
+                        onclick="setCategory('jasa')" 
+                        data-cat="jasa" 
+                        class="category-pill shrink-0 px-4 py-2 rounded-full text-xs sm:text-sm font-extrabold transition-all border bg-white text-stone-700 border-[#E8DCCF] hover:border-[#FF4500] hover:text-[#FF4500] shadow-sm flex items-center gap-1.5">
+                        <span>🛠️</span> <span>Jasa & Servis</span>
+                    </button>
+                    <button 
+                        onclick="setCategory('sembako')" 
+                        data-cat="sembako" 
+                        class="category-pill shrink-0 px-4 py-2 rounded-full text-xs sm:text-sm font-extrabold transition-all border bg-white text-stone-700 border-[#E8DCCF] hover:border-[#FF4500] hover:text-[#FF4500] shadow-sm flex items-center gap-1.5">
+                        <span>🥦</span> <span>Sembako & Toko</span>
+                    </button>
+                    <button 
+                        onclick="setCategory('laundry')" 
+                        data-cat="laundry" 
+                        class="category-pill shrink-0 px-4 py-2 rounded-full text-xs sm:text-sm font-extrabold transition-all border bg-white text-stone-700 border-[#E8DCCF] hover:border-[#FF4500] hover:text-[#FF4500] shadow-sm flex items-center gap-1.5">
+                        <span>🧺</span> <span>Laundry</span>
+                    </button>
+                    <button 
+                        onclick="setCategory('barber')" 
+                        data-cat="barber" 
+                        class="category-pill shrink-0 px-4 py-2 rounded-full text-xs sm:text-sm font-extrabold transition-all border bg-white text-stone-700 border-[#E8DCCF] hover:border-[#FF4500] hover:text-[#FF4500] shadow-sm flex items-center gap-1.5">
+                        <span>✂️</span> <span>Barbershop & Salon</span>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- INFO BAR: STATUS FILTER & JUMLAH -->
+        <div class="flex items-center justify-between gap-2 mb-4 pb-2 border-b border-[#EFE5D6]">
+            <div class="flex items-center gap-2">
+                <span class="text-xs sm:text-sm font-extrabold text-stone-800">
+                    Daftar Toko & Usaha
+                </span>
+                <span id="result-count" class="bg-[#FFF1ED] text-[#FF4500] font-black text-[11px] sm:text-xs px-2.5 py-0.5 rounded-full border border-[#FFC2B0]">
+                    8 UMKM
+                </span>
+            </div>
+
+            <button onclick="resetFilters()" class="text-[11px] sm:text-xs font-bold text-[#FF4500] hover:underline flex items-center gap-1">
+                <span>Reset Filter</span>
+                <span>🔄</span>
+            </button>
+        </div>
+
+        <!-- KONTEN UTAMA: GRID 2 KOLOM KARTU TOKO (MOBILE-FIRST) -->
+        <div id="stores-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-5">
+            
+            <!-- Card 1: Bakso Pak Joko -->
+            <div class="store-card bg-white rounded-2xl sm:rounded-3xl border border-[#F0E6D8] overflow-hidden shadow-sm hover:shadow-xl hover:shadow-[#FF4500]/10 transition-all duration-300 hover:-translate-y-1 relative group flex flex-col"
+                 data-name="Warung Bakso & Mie Ayam Pak Joko" data-category="kuliner" data-status="open" data-location="Tanah Seratus (Dekat Masjid Al-Ikhlas)">
+                <div class="relative w-full aspect-[4/3] bg-stone-100 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=600&q=80" 
+                         alt="Warung Bakso Pak Joko" loading="lazy" class="w-full h-full object-cover group-hover:scale-108 transition-transform duration-500 ease-out">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/20 pointer-events-none"></div>
+
+                    <!-- Badge Status BUKA -->
+                    <div class="absolute top-2 sm:top-2.5 left-2 sm:left-2.5 z-10">
+                        <span class="inline-flex items-center gap-1 bg-emerald-500 text-white text-[10px] sm:text-xs font-black px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full shadow-md tracking-wide">
+                            <span class="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span>
+                            <span>BUKA</span>
+                        </span>
+                    </div>
+
+                    <!-- Bookmark Button -->
+                    <button type="button" onclick="toggleLove(this)" class="absolute top-2 sm:top-2.5 right-2 sm:right-2.5 z-10 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white/90 backdrop-blur-sm text-stone-400 hover:text-red-500 flex items-center justify-center shadow-md transition-all hover:scale-110 active:scale-90">
+                        ❤️
+                    </button>
+
+                    <!-- Rating -->
+                    <div class="absolute bottom-2 left-2 z-10 inline-flex items-center gap-1 bg-black/60 backdrop-blur-md text-white text-[10px] sm:text-xs font-bold px-2 py-0.5 rounded-md">
+                        <span class="text-amber-400">★</span>
+                        <span>4.9</span>
+                    </div>
+                </div>
+                <div class="p-2.5 sm:p-4 flex flex-col flex-grow justify-between">
+                    <div>
+                        <h2 class="font-extrabold text-stone-900 text-xs sm:text-base leading-snug mb-1 line-clamp-1 group-hover:text-[#FF4500] transition-colors">
+                            Bakso & Mie Ayam Pak Joko
+                        </h2>
+                        <p class="text-[11px] sm:text-xs text-stone-500 font-medium flex items-center gap-1 mb-2.5 truncate">
+                            <span class="text-[#FF4500] shrink-0 text-xs">📍</span>
+                            <span class="truncate">Dekat Masjid Al-Ikhlas</span>
+                        </p>
+                    </div>
+                    <div class="mt-auto pt-2 border-t border-[#F5EBDD] flex flex-col gap-1.5">
+                        <div class="flex items-baseline justify-between text-[10px] sm:text-xs">
+                            <span class="text-stone-400 font-semibold">Mulai</span>
+                            <span class="font-black text-[#FF4500]">Rp 15.000</span>
+                        </div>
+                        <a href="#" class="w-full bg-[#FFF1ED] hover:bg-[#FF4500] text-[#FF4500] hover:text-white font-extrabold text-[11px] sm:text-xs py-2 px-2.5 rounded-xl text-center transition-all duration-200 shadow-sm flex items-center justify-center gap-1">
+                            <span>Lihat Toko</span>
+                            <span>👉</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2: Warkop Senja -->
+            <div class="store-card bg-white rounded-2xl sm:rounded-3xl border border-[#F0E6D8] overflow-hidden shadow-sm hover:shadow-xl hover:shadow-[#FF4500]/10 transition-all duration-300 hover:-translate-y-1 relative group flex flex-col"
+                 data-name="Warkop & Roti Bakar Senja" data-category="kopi" data-status="open" data-location="Tanah Seratus (Depan Lapangan Bola)">
+                <div class="relative w-full aspect-[4/3] bg-stone-100 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=600&q=80" 
+                         alt="Warkop Senja" loading="lazy" class="w-full h-full object-cover group-hover:scale-108 transition-transform duration-500 ease-out">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/20 pointer-events-none"></div>
+
+                    <!-- Badge Status BUKA -->
+                    <div class="absolute top-2 sm:top-2.5 left-2 sm:left-2.5 z-10">
+                        <span class="inline-flex items-center gap-1 bg-emerald-500 text-white text-[10px] sm:text-xs font-black px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full shadow-md tracking-wide">
+                            <span class="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span>
+                            <span>BUKA</span>
+                        </span>
+                    </div>
+
+                    <button type="button" onclick="toggleLove(this)" class="absolute top-2 sm:top-2.5 right-2 sm:right-2.5 z-10 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white/90 backdrop-blur-sm text-stone-400 hover:text-red-500 flex items-center justify-center shadow-md transition-all hover:scale-110 active:scale-90">
+                        ❤️
+                    </button>
+
+                    <div class="absolute bottom-2 left-2 z-10 inline-flex items-center gap-1 bg-black/60 backdrop-blur-md text-white text-[10px] sm:text-xs font-bold px-2 py-0.5 rounded-md">
+                        <span class="text-amber-400">★</span>
+                        <span>4.8</span>
+                    </div>
+                </div>
+                <div class="p-2.5 sm:p-4 flex flex-col flex-grow justify-between">
+                    <div>
+                        <h2 class="font-extrabold text-stone-900 text-xs sm:text-base leading-snug mb-1 line-clamp-1 group-hover:text-[#FF4500] transition-colors">
+                            Warkop & Roti Bakar Senja
+                        </h2>
+                        <p class="text-[11px] sm:text-xs text-stone-500 font-medium flex items-center gap-1 mb-2.5 truncate">
+                            <span class="text-[#FF4500] shrink-0 text-xs">📍</span>
+                            <span class="truncate">Depan Lapangan Bola</span>
+                        </p>
+                    </div>
+                    <div class="mt-auto pt-2 border-t border-[#F5EBDD] flex flex-col gap-1.5">
+                        <div class="flex items-baseline justify-between text-[10px] sm:text-xs">
+                            <span class="text-stone-400 font-semibold">Mulai</span>
+                            <span class="font-black text-[#FF4500]">Rp 6.000</span>
+                        </div>
+                        <a href="#" class="w-full bg-[#FFF1ED] hover:bg-[#FF4500] text-[#FF4500] hover:text-white font-extrabold text-[11px] sm:text-xs py-2 px-2.5 rounded-xl text-center transition-all duration-200 shadow-sm flex items-center justify-center gap-1">
+                            <span>Lihat Toko</span>
+                            <span>👉</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3: Bengkel Motor Cak Mat (TUTUP) -->
+            <div class="store-card bg-white rounded-2xl sm:rounded-3xl border border-[#F0E6D8] overflow-hidden shadow-sm hover:shadow-xl hover:shadow-[#FF4500]/10 transition-all duration-300 hover:-translate-y-1 relative group flex flex-col"
+                 data-name="Bengkel Motor & Servis Cak Mat" data-category="jasa" data-status="closed" data-location="Tanah Seratus (Jl. Flamboyan No. 12)">
+                <div class="relative w-full aspect-[4/3] bg-stone-100 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1580983218765-f663bec07b37?auto=format&fit=crop&w=600&q=80" 
+                         alt="Bengkel Motor Cak Mat" loading="lazy" class="w-full h-full object-cover group-hover:scale-108 transition-transform duration-500 ease-out filter grayscale-[30%]">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/20 pointer-events-none"></div>
+
+                    <!-- BADGE STATUS 'TUTUP' -->
+                    <div class="absolute top-2 sm:top-2.5 left-2 sm:left-2.5 z-10">
+                        <span class="inline-flex items-center gap-1 bg-stone-800/90 backdrop-blur-sm text-stone-200 text-[10px] sm:text-xs font-bold px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full shadow-md tracking-wide">
+                            <span class="w-1.5 h-1.5 rounded-full bg-stone-400"></span>
+                            <span>TUTUP</span>
+                        </span>
+                    </div>
+
+                    <button type="button" onclick="toggleLove(this)" class="absolute top-2 sm:top-2.5 right-2 sm:right-2.5 z-10 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white/90 backdrop-blur-sm text-stone-400 hover:text-red-500 flex items-center justify-center shadow-md transition-all hover:scale-110 active:scale-90">
+                        ❤️
+                    </button>
+
+                    <div class="absolute bottom-2 left-2 z-10 inline-flex items-center gap-1 bg-black/60 backdrop-blur-md text-white text-[10px] sm:text-xs font-bold px-2 py-0.5 rounded-md">
+                        <span class="text-amber-400">★</span>
+                        <span>4.7</span>
+                    </div>
+                </div>
+                <div class="p-2.5 sm:p-4 flex flex-col flex-grow justify-between">
+                    <div>
+                        <h2 class="font-extrabold text-stone-900 text-xs sm:text-base leading-snug mb-1 line-clamp-1 group-hover:text-[#FF4500] transition-colors">
+                            Bengkel Servis Cak Mat
+                        </h2>
+                        <p class="text-[11px] sm:text-xs text-stone-500 font-medium flex items-center gap-1 mb-2.5 truncate">
+                            <span class="text-[#FF4500] shrink-0 text-xs">📍</span>
+                            <span class="truncate">Jl. Flamboyan No. 12</span>
+                        </p>
+                    </div>
+                    <div class="mt-auto pt-2 border-t border-[#F5EBDD] flex flex-col gap-1.5">
+                        <div class="flex items-baseline justify-between text-[10px] sm:text-xs">
+                            <span class="text-stone-400 font-semibold">Ganti Oli</span>
+                            <span class="font-black text-[#FF4500]">Rp 45.000</span>
+                        </div>
+                        <a href="#" class="w-full bg-[#FFF1ED] hover:bg-[#FF4500] text-[#FF4500] hover:text-white font-extrabold text-[11px] sm:text-xs py-2 px-2.5 rounded-xl text-center transition-all duration-200 shadow-sm flex items-center justify-center gap-1">
+                            <span>Lihat Toko</span>
+                            <span>👉</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 4: Toko Sembako Bu Siti -->
+            <div class="store-card bg-white rounded-2xl sm:rounded-3xl border border-[#F0E6D8] overflow-hidden shadow-sm hover:shadow-xl hover:shadow-[#FF4500]/10 transition-all duration-300 hover:-translate-y-1 relative group flex flex-col"
+                 data-name="Toko Sembako & Sayur Bu Siti" data-category="sembako" data-status="open" data-location="Tanah Seratus (Gang Beringin)">
+                <div class="relative w-full aspect-[4/3] bg-stone-100 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=600&q=80" 
+                         alt="Toko Sembako Bu Siti" loading="lazy" class="w-full h-full object-cover group-hover:scale-108 transition-transform duration-500 ease-out">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/20 pointer-events-none"></div>
+
+                    <!-- Badge Status BUKA -->
+                    <div class="absolute top-2 sm:top-2.5 left-2 sm:left-2.5 z-10">
+                        <span class="inline-flex items-center gap-1 bg-emerald-500 text-white text-[10px] sm:text-xs font-black px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full shadow-md tracking-wide">
+                            <span class="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span>
+                            <span>BUKA</span>
+                        </span>
+                    </div>
+
+                    <button type="button" onclick="toggleLove(this)" class="absolute top-2 sm:top-2.5 right-2 sm:right-2.5 z-10 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white/90 backdrop-blur-sm text-stone-400 hover:text-red-500 flex items-center justify-center shadow-md transition-all hover:scale-110 active:scale-90">
+                        ❤️
+                    </button>
+
+                    <div class="absolute bottom-2 left-2 z-10 inline-flex items-center gap-1 bg-black/60 backdrop-blur-md text-white text-[10px] sm:text-xs font-bold px-2 py-0.5 rounded-md">
+                        <span class="text-amber-400">★</span>
+                        <span>4.9</span>
+                    </div>
+                </div>
+                <div class="p-2.5 sm:p-4 flex flex-col flex-grow justify-between">
+                    <div>
+                        <h2 class="font-extrabold text-stone-900 text-xs sm:text-base leading-snug mb-1 line-clamp-1 group-hover:text-[#FF4500] transition-colors">
+                            Toko Sembako Bu Siti
+                        </h2>
+                        <p class="text-[11px] sm:text-xs text-stone-500 font-medium flex items-center gap-1 mb-2.5 truncate">
+                            <span class="text-[#FF4500] shrink-0 text-xs">📍</span>
+                            <span class="truncate">Gang Beringin RT 03</span>
+                        </p>
+                    </div>
+                    <div class="mt-auto pt-2 border-t border-[#F5EBDD] flex flex-col gap-1.5">
+                        <div class="flex items-baseline justify-between text-[10px] sm:text-xs">
+                            <span class="text-stone-400 font-semibold">Harga</span>
+                            <span class="font-black text-[#FF4500]">Paling Murah</span>
+                        </div>
+                        <a href="#" class="w-full bg-[#FFF1ED] hover:bg-[#FF4500] text-[#FF4500] hover:text-white font-extrabold text-[11px] sm:text-xs py-2 px-2.5 rounded-xl text-center transition-all duration-200 shadow-sm flex items-center justify-center gap-1">
+                            <span>Lihat Toko</span>
+                            <span>👉</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 5: Laundry Berkah Kiloan -->
+            <div class="store-card bg-white rounded-2xl sm:rounded-3xl border border-[#F0E6D8] overflow-hidden shadow-sm hover:shadow-xl hover:shadow-[#FF4500]/10 transition-all duration-300 hover:-translate-y-1 relative group flex flex-col"
+                 data-name="Berkah Laundry Express & Kiloan" data-category="laundry" data-status="open" data-location="Tanah Seratus (Sebelah Alfamart)">
+                <div class="relative w-full aspect-[4/3] bg-stone-100 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?auto=format&fit=crop&w=600&q=80" 
+                         alt="Laundry Berkah" loading="lazy" class="w-full h-full object-cover group-hover:scale-108 transition-transform duration-500 ease-out">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/20 pointer-events-none"></div>
+
+                    <!-- Badge Status BUKA -->
+                    <div class="absolute top-2 sm:top-2.5 left-2 sm:left-2.5 z-10">
+                        <span class="inline-flex items-center gap-1 bg-emerald-500 text-white text-[10px] sm:text-xs font-black px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full shadow-md tracking-wide">
+                            <span class="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span>
+                            <span>BUKA</span>
+                        </span>
+                    </div>
+
+                    <button type="button" onclick="toggleLove(this)" class="absolute top-2 sm:top-2.5 right-2 sm:right-2.5 z-10 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white/90 backdrop-blur-sm text-stone-400 hover:text-red-500 flex items-center justify-center shadow-md transition-all hover:scale-110 active:scale-90">
+                        ❤️
+                    </button>
+
+                    <div class="absolute bottom-2 left-2 z-10 inline-flex items-center gap-1 bg-black/60 backdrop-blur-md text-white text-[10px] sm:text-xs font-bold px-2 py-0.5 rounded-md">
+                        <span class="text-amber-400">★</span>
+                        <span>4.8</span>
+                    </div>
+                </div>
+                <div class="p-2.5 sm:p-4 flex flex-col flex-grow justify-between">
+                    <div>
+                        <h2 class="font-extrabold text-stone-900 text-xs sm:text-base leading-snug mb-1 line-clamp-1 group-hover:text-[#FF4500] transition-colors">
+                            Berkah Laundry Express
+                        </h2>
+                        <p class="text-[11px] sm:text-xs text-stone-500 font-medium flex items-center gap-1 mb-2.5 truncate">
+                            <span class="text-[#FF4500] shrink-0 text-xs">📍</span>
+                            <span class="truncate">Sebelah Alfamart Tanah Seratus</span>
+                        </p>
+                    </div>
+                    <div class="mt-auto pt-2 border-t border-[#F5EBDD] flex flex-col gap-1.5">
+                        <div class="flex items-baseline justify-between text-[10px] sm:text-xs">
+                            <span class="text-stone-400 font-semibold">Per Kg</span>
+                            <span class="font-black text-[#FF4500]">Rp 7.000</span>
+                        </div>
+                        <a href="#" class="w-full bg-[#FFF1ED] hover:bg-[#FF4500] text-[#FF4500] hover:text-white font-extrabold text-[11px] sm:text-xs py-2 px-2.5 rounded-xl text-center transition-all duration-200 shadow-sm flex items-center justify-center gap-1">
+                            <span>Lihat Toko</span>
+                            <span>👉</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 6: Barbershop Asgar Juara -->
+            <div class="store-card bg-white rounded-2xl sm:rounded-3xl border border-[#F0E6D8] overflow-hidden shadow-sm hover:shadow-xl hover:shadow-[#FF4500]/10 transition-all duration-300 hover:-translate-y-1 relative group flex flex-col"
+                 data-name="Barbershop Asgar Juara Pangkas" data-category="barber" data-status="open" data-location="Tanah Seratus (Ruko No. 4)">
+                <div class="relative w-full aspect-[4/3] bg-stone-100 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=600&q=80" 
+                         alt="Barbershop Asgar" loading="lazy" class="w-full h-full object-cover group-hover:scale-108 transition-transform duration-500 ease-out">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/20 pointer-events-none"></div>
+
+                    <!-- Badge Status BUKA -->
+                    <div class="absolute top-2 sm:top-2.5 left-2 sm:left-2.5 z-10">
+                        <span class="inline-flex items-center gap-1 bg-emerald-500 text-white text-[10px] sm:text-xs font-black px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full shadow-md tracking-wide">
+                            <span class="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span>
+                            <span>BUKA</span>
+                        </span>
+                    </div>
+
+                    <button type="button" onclick="toggleLove(this)" class="absolute top-2 sm:top-2.5 right-2 sm:right-2.5 z-10 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white/90 backdrop-blur-sm text-stone-400 hover:text-red-500 flex items-center justify-center shadow-md transition-all hover:scale-110 active:scale-90">
+                        ❤️
+                    </button>
+
+                    <div class="absolute bottom-2 left-2 z-10 inline-flex items-center gap-1 bg-black/60 backdrop-blur-md text-white text-[10px] sm:text-xs font-bold px-2 py-0.5 rounded-md">
+                        <span class="text-amber-400">★</span>
+                        <span>4.9</span>
+                    </div>
+                </div>
+                <div class="p-2.5 sm:p-4 flex flex-col flex-grow justify-between">
+                    <div>
+                        <h2 class="font-extrabold text-stone-900 text-xs sm:text-base leading-snug mb-1 line-clamp-1 group-hover:text-[#FF4500] transition-colors">
+                            Barbershop Asgar Juara
+                        </h2>
+                        <p class="text-[11px] sm:text-xs text-stone-500 font-medium flex items-center gap-1 mb-2.5 truncate">
+                            <span class="text-[#FF4500] shrink-0 text-xs">📍</span>
+                            <span class="truncate">Ruko Tanah Seratus No. 4</span>
+                        </p>
+                    </div>
+                    <div class="mt-auto pt-2 border-t border-[#F5EBDD] flex flex-col gap-1.5">
+                        <div class="flex items-baseline justify-between text-[10px] sm:text-xs">
+                            <span class="text-stone-400 font-semibold">Potong + Cuci</span>
+                            <span class="font-black text-[#FF4500]">Rp 25.000</span>
+                        </div>
+                        <a href="#" class="w-full bg-[#FFF1ED] hover:bg-[#FF4500] text-[#FF4500] hover:text-white font-extrabold text-[11px] sm:text-xs py-2 px-2.5 rounded-xl text-center transition-all duration-200 shadow-sm flex items-center justify-center gap-1">
+                            <span>Lihat Toko</span>
+                            <span>👉</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 7: Dapur Kue Mbak Sri (TUTUP) -->
+            <div class="store-card bg-white rounded-2xl sm:rounded-3xl border border-[#F0E6D8] overflow-hidden shadow-sm hover:shadow-xl hover:shadow-[#FF4500]/10 transition-all duration-300 hover:-translate-y-1 relative group flex flex-col"
+                 data-name="Dapur Kue Basah Mbak Sri" data-category="kuliner" data-status="closed" data-location="Tanah Seratus (Jl. Melati RT 01)">
+                <div class="relative w-full aspect-[4/3] bg-stone-100 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=600&q=80" 
+                         alt="Dapur Kue Mbak Sri" loading="lazy" class="w-full h-full object-cover group-hover:scale-108 transition-transform duration-500 ease-out filter grayscale-[25%]">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/20 pointer-events-none"></div>
+
+                    <!-- BADGE STATUS 'TUTUP' -->
+                    <div class="absolute top-2 sm:top-2.5 left-2 sm:left-2.5 z-10">
+                        <span class="inline-flex items-center gap-1 bg-stone-800/90 backdrop-blur-sm text-stone-200 text-[10px] sm:text-xs font-bold px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full shadow-md tracking-wide">
+                            <span class="w-1.5 h-1.5 rounded-full bg-stone-400"></span>
+                            <span>TUTUP</span>
+                        </span>
+                    </div>
+
+                    <button type="button" onclick="toggleLove(this)" class="absolute top-2 sm:top-2.5 right-2 sm:right-2.5 z-10 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white/90 backdrop-blur-sm text-stone-400 hover:text-red-500 flex items-center justify-center shadow-md transition-all hover:scale-110 active:scale-90">
+                        ❤️
+                    </button>
+
+                    <div class="absolute bottom-2 left-2 z-10 inline-flex items-center gap-1 bg-black/60 backdrop-blur-md text-white text-[10px] sm:text-xs font-bold px-2 py-0.5 rounded-md">
+                        <span class="text-amber-400">★</span>
+                        <span>4.8</span>
+                    </div>
+                </div>
+                <div class="p-2.5 sm:p-4 flex flex-col flex-grow justify-between">
+                    <div>
+                        <h2 class="font-extrabold text-stone-900 text-xs sm:text-base leading-snug mb-1 line-clamp-1 group-hover:text-[#FF4500] transition-colors">
+                            Dapur Kue Basah Mbak Sri
+                        </h2>
+                        <p class="text-[11px] sm:text-xs text-stone-500 font-medium flex items-center gap-1 mb-2.5 truncate">
+                            <span class="text-[#FF4500] shrink-0 text-xs">📍</span>
+                            <span class="truncate">Jl. Melati RT 01/RW 04</span>
+                        </p>
+                    </div>
+                    <div class="mt-auto pt-2 border-t border-[#F5EBDD] flex flex-col gap-1.5">
+                        <div class="flex items-baseline justify-between text-[10px] sm:text-xs">
+                            <span class="text-stone-400 font-semibold">Mulai</span>
+                            <span class="font-black text-[#FF4500]">Rp 2.500/pcs</span>
+                        </div>
+                        <a href="#" class="w-full bg-[#FFF1ED] hover:bg-[#FF4500] text-[#FF4500] hover:text-white font-extrabold text-[11px] sm:text-xs py-2 px-2.5 rounded-xl text-center transition-all duration-200 shadow-sm flex items-center justify-center gap-1">
+                            <span>Lihat Toko</span>
+                            <span>👉</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 8: Es Teh Manis Nusantara -->
+            <div class="store-card bg-white rounded-2xl sm:rounded-3xl border border-[#F0E6D8] overflow-hidden shadow-sm hover:shadow-xl hover:shadow-[#FF4500]/10 transition-all duration-300 hover:-translate-y-1 relative group flex flex-col"
+                 data-name="Es Teh & Minuman Segar Jumbo" data-category="kopi" data-status="open" data-location="Tanah Seratus (Pertigaan Pasar)">
+                <div class="relative w-full aspect-[4/3] bg-stone-100 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1556679343-c7306c1976bc?auto=format&fit=crop&w=600&q=80" 
+                         alt="Es Teh Jumbo" loading="lazy" class="w-full h-full object-cover group-hover:scale-108 transition-transform duration-500 ease-out">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/20 pointer-events-none"></div>
+
+                    <!-- Badge Status BUKA -->
+                    <div class="absolute top-2 sm:top-2.5 left-2 sm:left-2.5 z-10">
+                        <span class="inline-flex items-center gap-1 bg-emerald-500 text-white text-[10px] sm:text-xs font-black px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full shadow-md tracking-wide">
+                            <span class="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span>
+                            <span>BUKA</span>
+                        </span>
+                    </div>
+
+                    <button type="button" onclick="toggleLove(this)" class="absolute top-2 sm:top-2.5 right-2 sm:right-2.5 z-10 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white/90 backdrop-blur-sm text-stone-400 hover:text-red-500 flex items-center justify-center shadow-md transition-all hover:scale-110 active:scale-90">
+                        ❤️
+                    </button>
+
+                    <div class="absolute bottom-2 left-2 z-10 inline-flex items-center gap-1 bg-black/60 backdrop-blur-md text-white text-[10px] sm:text-xs font-bold px-2 py-0.5 rounded-md">
+                        <span class="text-amber-400">★</span>
+                        <span>4.9</span>
+                    </div>
+                </div>
+                <div class="p-2.5 sm:p-4 flex flex-col flex-grow justify-between">
+                    <div>
+                        <h2 class="font-extrabold text-stone-900 text-xs sm:text-base leading-snug mb-1 line-clamp-1 group-hover:text-[#FF4500] transition-colors">
+                            Es Teh Segar Jumbo
+                        </h2>
+                        <p class="text-[11px] sm:text-xs text-stone-500 font-medium flex items-center gap-1 mb-2.5 truncate">
+                            <span class="text-[#FF4500] shrink-0 text-xs">📍</span>
+                            <span class="truncate">Pertigaan Pasar Pagi</span>
+                        </p>
+                    </div>
+                    <div class="mt-auto pt-2 border-t border-[#F5EBDD] flex flex-col gap-1.5">
+                        <div class="flex items-baseline justify-between text-[10px] sm:text-xs">
+                            <span class="text-stone-400 font-semibold">Cup Jumbo</span>
+                            <span class="font-black text-[#FF4500]">Rp 5.000</span>
+                        </div>
+                        <a href="#" class="w-full bg-[#FFF1ED] hover:bg-[#FF4500] text-[#FF4500] hover:text-white font-extrabold text-[11px] sm:text-xs py-2 px-2.5 rounded-xl text-center transition-all duration-200 shadow-sm flex items-center justify-center gap-1">
+                            <span>Lihat Toko</span>
+                            <span>👉</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Empty State (Hidden by default, shown if no search match) -->
+        <div id="empty-state" class="hidden text-center py-16 px-4 bg-white rounded-3xl border border-[#F0E6D8] shadow-sm max-w-lg mx-auto my-6">
+            <div class="w-16 h-16 sm:w-20 sm:h-20 bg-[#FFF1ED] text-[#FF4500] text-3xl sm:text-4xl rounded-full flex items-center justify-center mx-auto mb-4 shadow-inner">
+                🔍
+            </div>
+            <h2 class="text-lg sm:text-xl font-black text-stone-900 mb-1">
+                Waduh, Belum Ada Toko yang Cocok
+            </h2>
+            <p class="text-xs sm:text-sm font-medium text-stone-500 mb-5 max-w-xs mx-auto">
+                Coba gunakan kata kunci pencarian yang lebih umum atau pilih kategori lainnya ya tetangga!
+            </p>
+            <button onclick="resetFilters()" class="inline-flex items-center gap-2 bg-[#FF4500] hover:bg-[#E63900] text-white text-xs sm:text-sm font-black px-6 py-2.5 rounded-full shadow-md shadow-[#FF4500]/25 transition-all hover:scale-105">
+                <span>Lihat Semua Toko</span>
+                <span>✨</span>
+            </button>
+        </div>
+
+    </main>
+
+    <!-- Mobile Bottom Navigation Dock (Mobile-First Experience) -->
+    <div class="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#FAF5EE]/95 backdrop-blur-lg border-t border-[#EFE5D6] py-2 px-6 shadow-lg shadow-stone-900/10">
+        <div class="flex justify-around items-center max-w-md mx-auto">
+            <a href="#" class="flex flex-col items-center gap-0.5 text-stone-400 hover:text-[#FF4500]">
+                <span class="text-xl">🏠</span>
+                <span class="text-[10px] font-bold">Beranda</span>
+            </a>
+            <a href="#" class="flex flex-col items-center gap-0.5 text-[#FF4500] font-black">
+                <div class="w-8 h-8 rounded-full bg-[#FF4500] text-white flex items-center justify-center text-sm shadow-sm">
+                    🏬
+                </div>
+                <span class="text-[10px] font-bold">Direktori</span>
+            </a>
+            <a href="#" class="flex flex-col items-center gap-0.5 text-stone-400 hover:text-[#FF4500]">
+                <span class="text-xl">❤️</span>
+                <span class="text-[10px] font-bold">Favorit</span>
+            </a>
+            <a href="#" class="flex flex-col items-center gap-0.5 text-stone-400 hover:text-[#FF4500]">
+                <span class="text-xl">👤</span>
+                <span class="text-[10px] font-bold">Akun</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Client-side Interactive Filtering Script -->
+    <script>
+        let currentCategory = 'all';
+        let openOnly = false;
+
+        function setCategory(cat) {
+            currentCategory = cat;
+            
+            // Update active pill UI
+            document.querySelectorAll('.category-pill').forEach(btn => {
+                if (btn.getAttribute('data-cat') === cat) {
+                    btn.className = 'category-pill shrink-0 px-4 py-2 rounded-full text-xs sm:text-sm font-extrabold transition-all border bg-[#FF4500] text-white border-[#FF4500] shadow-md shadow-[#FF4500]/25 scale-105 flex items-center gap-1.5';
+                } else {
+                    btn.className = 'category-pill shrink-0 px-4 py-2 rounded-full text-xs sm:text-sm font-extrabold transition-all border bg-white text-stone-700 border-[#E8DCCF] hover:border-[#FF4500] hover:text-[#FF4500] shadow-sm flex items-center gap-1.5';
+                }
+            });
+
+            filterCards();
+        }
+
+        function toggleOpenOnly() {
+            openOnly = !openOnly;
+            const btn = document.getElementById('btn-open-only');
+            const dot = document.getElementById('open-dot');
+
+            if (openOnly) {
+                btn.className = 'flex items-center gap-1.5 px-3 py-2 sm:py-2.5 rounded-xl sm:rounded-full text-xs font-bold transition-all bg-emerald-500 text-white shadow-sm';
+                dot.className = 'w-2 h-2 rounded-full bg-white animate-ping';
+            } else {
+                btn.className = 'flex items-center gap-1.5 px-3 py-2 sm:py-2.5 rounded-xl sm:rounded-full text-xs font-bold transition-all bg-stone-100 text-stone-600 hover:bg-stone-200';
+                dot.className = 'w-2 h-2 rounded-full bg-emerald-500';
+            }
+
+            filterCards();
+        }
+
+        function filterCards() {
+            const query = document.getElementById('search-input').value.toLowerCase().trim();
+            const clearBtn = document.getElementById('clear-search');
+            if (query.length > 0) {
+                clearBtn.classList.remove('hidden');
+            } else {
+                clearBtn.classList.add('hidden');
+            }
+
+            const cards = document.querySelectorAll('.store-card');
+            let visibleCount = 0;
+
+            cards.forEach(card => {
+                const name = (card.getAttribute('data-name') || '').toLowerCase();
+                const loc = (card.getAttribute('data-location') || '').toLowerCase();
+                const cat = card.getAttribute('data-category');
+                const status = card.getAttribute('data-status');
+
+                const matchesQuery = !query || name.includes(query) || loc.includes(query);
+                const matchesCat = currentCategory === 'all' || cat === currentCategory;
+                const matchesStatus = !openOnly || status === 'open';
+
+                if (matchesQuery && matchesCat && matchesStatus) {
+                    card.classList.remove('hidden');
+                    visibleCount++;
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+
+            const countEl = document.getElementById('result-count');
+            countEl.textContent = visibleCount + ' UMKM';
+
+            const emptyState = document.getElementById('empty-state');
+            if (visibleCount === 0) {
+                emptyState.classList.remove('hidden');
+            } else {
+                emptyState.classList.add('hidden');
+            }
+        }
+
+        function clearSearch() {
+            document.getElementById('search-input').value = '';
+            filterCards();
+        }
+
+        function resetFilters() {
+            document.getElementById('search-input').value = '';
+            openOnly = false;
+            const btn = document.getElementById('btn-open-only');
+            const dot = document.getElementById('open-dot');
+            btn.className = 'flex items-center gap-1.5 px-3 py-2 sm:py-2.5 rounded-xl sm:rounded-full text-xs font-bold transition-all bg-stone-100 text-stone-600 hover:bg-stone-200';
+            dot.className = 'w-2 h-2 rounded-full bg-emerald-500';
+            setCategory('all');
+        }
+
+        function toggleLove(btn) {
+            btn.classList.toggle('text-red-500');
+            btn.classList.toggle('text-stone-400');
+            btn.classList.add('scale-125');
+            setTimeout(() => btn.classList.remove('scale-125'), 150);
+        }
+    </script>
+</body>
+</html>
